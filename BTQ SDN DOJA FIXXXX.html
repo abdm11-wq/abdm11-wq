@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Laporan Mengaji SD Negeri Doja</title>
+    <!-- Tailwind CSS CDN untuk styling yang responsif dan modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+    <!-- Font Awesome CDN untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0FDF4; /* Warna hijau muda untuk nuansa islami */
+        }
+        .container {
+            max-width: 1024px;
+        }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            background-color: #FFFFFF;
+            transition: all 0.2s ease-in-out;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #10B981; /* Hijau cerah saat fokus */
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+        .btn-primary {
+            background-color: #059669; /* Hijau tua */
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            background-color: #047857; /* Hijau lebih gelap saat di-hover */
+        }
+        .btn-secondary {
+            background-color: #34D399; /* Hijau sedang */
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-secondary:hover {
+            background-color: #10B981; /* Hijau cerah saat di-hover */
+        }
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #F3FDEE; /* Warna hijau sangat muda untuk baris ganjil */
+        }
+        .table-striped tbody tr:hover {
+            background-color: #D1FAE5; /* Warna hijau muda saat di-hover */
+        }
+        .table-wrapper {
+            overflow-x: auto; /* Mengaktifkan scroll horizontal untuk tabel pada layar kecil */
+        }
+        @media print {
+            body {
+                background-color: #FFFFFF;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .recap-section {
+                margin: 0;
+                box-shadow: none;
+                padding: 0;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid #000;
+                padding: 8px;
+            }
+            .table-striped tbody tr:nth-child(odd) {
+                background-color: #f2f2f2;
+            }
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="container mx-auto">
+        <h1 class="text-3xl sm:text-4xl font-bold text-center mb-8 text-green-800">
+            Form Laporan Mengaji <br class="sm:hidden"> Siswa SD Negeri Doja
+        </h1>
+
+        <!-- Bagian Formulir -->
+        <div class="bg-white rounded-xl shadow-xl p-6 sm:p-8 no-print">
+            <form id="mengajiForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Nama Siswa -->
+                <div>
+                    <label for="nama" class="block text-gray-700 font-semibold mb-2">Nama Siswa</label>
+                    <input type="text" id="nama" name="nama" class="form-input" placeholder="Masukkan nama lengkap siswa" required>
+                </div>
+                <!-- Kelas -->
+                <div>
+                    <label for="kelas" class="block text-gray-700 font-semibold mb-2">Kelas</label>
+                    <select id="kelas" name="kelas" class="form-select" required>
+                        <option value="">Pilih Kelas</option>
+                        <option value="1">Kelas 1</option>
+                        <option value="2">Kelas 2</option>
+                        <option value="3">Kelas 3</option>
+                        <option value="4">Kelas 4</option>
+                        <option value="5">Kelas 5</option>
+                        <option value="6">Kelas 6</option>
+                    </select>
+                </div>
+                <!-- Tanggal -->
+                <!-- Input hidden untuk tanggal otomatis -->
+                <input type="hidden" id="tanggal" name="tanggal">
+                <!-- Surah -->
+                <div>
+                    <label for="surah" class="block text-gray-700 font-semibold mb-2">Surah</label>
+                    <input type="text" id="surah" name="surah" class="form-input" placeholder="Misal: Al-Fatihah" required>
+                </div>
+                <!-- Ayat dari -->
+                <div>
+                    <label for="ayatDari" class="block text-gray-700 font-semibold mb-2">Ayat dari</label>
+                    <input type="number" id="ayatDari" name="ayatDari" class="form-input" placeholder="Ayat mulai dari" required min="1">
+                </div>
+                <!-- Ayat sampai -->
+                <div>
+                    <label for="ayatSampai" class="block text-gray-700 font-semibold mb-2">Ayat sampai</label>
+                    <input type="number" id="ayatSampai" name="ayatSampai" class="form-input" placeholder="Ayat sampai" required min="1">
+                </div>
+                <!-- Penilaian -->
+                <div>
+                    <label for="penilaian" class="block text-gray-700 font-semibold mb-2">Penilaian</label>
+                    <select id="penilaian" name="penilaian" class="form-select" required>
+                        <option value="">Pilih Penilaian</option>
+                        <option value="Sangat Lancar">Sangat Lancar</option>
+                        <option value="Lancar">Lancar</option>
+                        <option value="Cukup Lancar">Cukup Lancar</option>
+                        <option value="Kurang Lancar">Kurang Lancar</option>
+                    </select>
+                </div>
+                <!-- Catatan Guru -->
+                <div class="md:col-span-2">
+                    <label for="catatan" class="block text-gray-700 font-semibold mb-2">Catatan Guru</label>
+                    <textarea id="catatan" name="catatan" class="form-textarea" rows="3" placeholder="Tambahkan catatan untuk siswa (misal: perlu perbaikan makhroj)" required></textarea>
+                </div>
+
+                <!-- Tombol Submit -->
+                <div class="md:col-span-2 flex justify-center mt-4">
+                    <button type="submit" class="btn-primary flex items-center gap-2 font-bold shadow-md">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Kirim Laporan
+                    </button>
+                </div>
+            </form>
+
+            <!-- Area pesan sukses -->
+            <div id="statusMessage" class="hidden text-center mt-6">
+                <span class="text-green-600 font-semibold text-lg">✅ Data berhasil disimpan di database</span>
+            </div>
+        </div>
+
+        <!-- Bagian Rekap Laporan -->
+        <div class="recap-section mt-12 bg-white rounded-xl shadow-xl p-6 sm:p-8">
+            <h2 class="text-2xl sm:text-3xl font-bold text-green-800 mb-6">Rekap Laporan Mengaji</h2>
+
+            <!-- Filter dan Tombol Unduh -->
+            <div class="no-print grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div>
+                    <label for="filterKelas" class="block text-gray-700 font-semibold mb-2">Filter Kelas</label>
+                    <select id="filterKelas" class="form-select">
+                        <option value="">Semua Kelas</option>
+                        <option value="1">Kelas 1</option>
+                        <option value="2">Kelas 2</option>
+                        <option value="3">Kelas 3</option>
+                        <option value="4">Kelas 4</option>
+                        <option value="5">Kelas 5</option>
+                        <option value="6">Kelas 6</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filterPenilaian" class="block text-gray-700 font-semibold mb-2">Filter Penilaian</label>
+                    <select id="filterPenilaian" class="form-select">
+                        <option value="">Semua Penilaian</option>
+                        <option value="Sangat Lancar">Sangat Lancar</option>
+                        <option value="Lancar">Lancar</option>
+                        <option value="Cukup Lancar">Cukup Lancar</option>
+                        <option value="Kurang Lancar">Kurang Lancar</option>
+                    </select>
+                </div>
+                <div class="self-end">
+                    <button id="printButton" class="btn-secondary w-full flex items-center justify-center gap-2 font-bold shadow-md">
+                        <i class="fa-solid fa-download"></i>
+                        Unduh Rekap PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabel Rekap Laporan -->
+            <div class="table-wrapper">
+                <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden table-striped">
+                    <thead class="bg-green-600">
+                        <tr>
+                            <th class="px-3 sm:px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Tanggal</th>
+                            <th class="px-3 sm:px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Nama</th>
+                            <th class="px-3 sm:px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Kelas</th>
+                            <th class="px-3 sm:px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Surah</th>
+                            <th class="px-3 sm:px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Ayat</th>
+                            <th class="px-3 sm:px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Penilaian</th>
+                            <th class="px-3 sm:px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Catatan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rekapTable" class="bg-white divide-y divide-gray-200">
+                        <!-- Data akan dimasukkan di sini oleh JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // URL Google Apps Script Web App yang baru.
+            // URL ini telah diperbarui dengan URL versi 'exec' yang Anda berikan.
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9OmoaX0kShsbgMLP1oak2u48ZFDL3A2lYGg3eFrn7LU8nEB2yA8yOvGudbA46-sXn/exec';
+            const MAX_RETRIES = 3;
+
+            // Dapatkan referensi elemen-elemen HTML
+            const form = document.getElementById('mengajiForm');
+            const statusMessage = document.getElementById('statusMessage');
+            const tanggalInput = document.getElementById('tanggal');
+            const rekapTable = document.getElementById('rekapTable');
+            const filterKelas = document.getElementById('filterKelas');
+            const filterPenilaian = document.getElementById('filterPenilaian');
+            const printButton = document.getElementById('printButton');
+
+            // Variabel untuk menyimpan data asli dari API
+            let allData = [];
+
+            // Fungsi utilitas untuk melakukan fetch dengan retry (percobaan ulang)
+            const fetchWithRetry = async (url, options = {}, retries = MAX_RETRIES) => {
+                let lastError = null;
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (response.ok) {
+                            return response;
+                        }
+                        // Jika respons tidak OK, coba lagi
+                        lastError = new Error(`HTTP error! status: ${response.status}`);
+                        console.warn(`Percobaan ke-${i + 1} gagal. Mencoba lagi...`);
+                        await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000)); // Exponential backoff
+                    } catch (error) {
+                        lastError = error;
+                        console.warn(`Percobaan ke-${i + 1} gagal: ${error}. Mencoba lagi...`);
+                        await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                    }
+                }
+                throw lastError; // Lemparkan error jika semua percobaan gagal
+            };
+
+            // Fungsi untuk mengatur tanggal otomatis ke hari ini
+            const prefillDate = () => {
+                const today = new Date().toISOString().split('T')[0];
+                tanggalInput.value = today;
+            };
+
+            // Fungsi untuk mengambil data dari Google Sheets (GET)
+            const fetchData = async () => {
+                try {
+                    console.log("Memulai pengambilan data rekap...");
+                    const response = await fetchWithRetry(`${SCRIPT_URL}?action=read`);
+                    const data = await response.json();
+                    allData = data.data || [];
+                    renderTable(allData);
+                    console.log("Pengambilan data rekap berhasil.");
+                } catch (error) {
+                    console.error('Gagal mengambil data setelah beberapa kali percobaan:', error);
+                    rekapTable.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-red-500">Gagal memuat data. Periksa koneksi atau URL Web App.</td></tr>`;
+                }
+            };
+
+            // Fungsi untuk menampilkan data ke dalam tabel
+            const renderTable = (data) => {
+                rekapTable.innerHTML = '';
+                if (data.length === 0) {
+                    rekapTable.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-gray-500">Tidak ada data laporan mengaji.</td></tr>';
+                    return;
+                }
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.tanggal}</td>
+                        <td class="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama}</td>
+                        <td class="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.kelas}</td>
+                        <td class="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.surah}</td>
+                        <td class="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.ayatDari}-${item.ayatSampai}</td>
+                        <td class="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-semibold">${item.penilaian}</td>
+                        <td class="px-3 sm:px-6 py-4 text-sm text-gray-700">${item.catatan}</td>
+                    `;
+                    rekapTable.appendChild(row);
+                });
+            };
+
+            // Fungsi untuk menangani filter data
+            const applyFilters = () => {
+                const selectedKelas = filterKelas.value;
+                const selectedPenilaian = filterPenilaian.value;
+
+                let filteredData = allData;
+
+                if (selectedKelas) {
+                    filteredData = filteredData.filter(item => item.kelas === selectedKelas);
+                }
+
+                if (selectedPenilaian) {
+                    filteredData = filteredData.filter(item => item.penilaian === selectedPenilaian);
+                }
+
+                renderTable(filteredData);
+            };
+
+            // Menangani pengiriman formulir (POST)
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Sembunyikan pesan sukses sebelumnya
+                statusMessage.classList.add('hidden');
+
+                // Tampilkan loading spinner atau disable tombol
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...`;
+
+                // Ambil data formulir
+                const formData = new FormData(form);
+                
+                try {
+                    console.log("Memulai pengiriman data...");
+                    const response = await fetchWithRetry(SCRIPT_URL, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    if (result.result === 'success') {
+                        statusMessage.classList.remove('hidden');
+                        form.reset();
+                        prefillDate();
+                        fetchData(); // Muat ulang data rekap
+                        console.log("Pengiriman data berhasil.");
+                    } else {
+                        throw new Error('Pengiriman data gagal.');
+                    }
+                } catch (error) {
+                    console.error('Terjadi kesalahan setelah beberapa kali percobaan:', error);
+                    statusMessage.innerHTML = `<span class="text-red-600 font-semibold text-lg">⚠️ Gagal menyimpan data. Silakan coba lagi.</span>`;
+                    statusMessage.classList.remove('hidden');
+                } finally {
+                    // Kembalikan tombol ke keadaan semula
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Kirim Laporan`;
+                }
+            });
+
+            // Menangani tombol unduh PDF
+            printButton.addEventListener('click', () => {
+                window.print();
+            });
+
+            // Menangani perubahan filter
+            filterKelas.addEventListener('change', applyFilters);
+            filterPenilaian.addEventListener('change', applyFilters);
+
+            // Inisialisasi: jalankan fungsi-fungsi saat halaman dimuat
+            prefillDate();
+            fetchData();
+        });
+    </script>
+
+</body>
+</html>
